@@ -1,24 +1,29 @@
 #include <iostream>
 #include "vec.h"
 
-vec::vec(): arr(nullptr), size(0), cap(5) {}
+vec::vec(): size(0), cap(5) {
+    arr = new int[cap];
+}
 
 vec::vec(size_t cap): size(0), cap(cap)
-{ 
+{
     arr = new int[cap];
 }
 vec::vec(const vec& o)
 { 
-    arr = o.arr;
+    arr = new int[o.cap];
     size = o.size;
     cap = o.cap;
+    for(int i = 0; i < o.size; ++i)
+    {
+        arr[i] = o.arr[i];
+    }
+
 }
 vec::~vec(){
-    if(arr != nullptr && deleted)
-    { 
+
         delete[] arr;
         arr = nullptr;
-    }
 }
 void vec::push(int value)
 {
@@ -29,7 +34,6 @@ void vec::push(int value)
             tmp[i] = arr[i];
         }
         delete[] arr;
-        deleted = false;
         arr = tmp;
         tmp = nullptr;
     }
